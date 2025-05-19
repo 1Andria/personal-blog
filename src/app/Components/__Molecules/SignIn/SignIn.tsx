@@ -5,12 +5,20 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+interface Blog {
+  title: string;
+  content: string;
+  createdAt: string;
+  slug: string;
+  description: string;
+}
+
 interface User {
   id: number;
   author: string;
   email: string;
   password: string;
-  Blogs: any[];
+  Blogs: Blog[];
   createdAt: string;
 }
 const schema = yup.object({
