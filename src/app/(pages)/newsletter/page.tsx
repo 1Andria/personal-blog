@@ -103,7 +103,7 @@ function Newsletter() {
           </label>
           <textarea
             placeholder="Start writing your blog here..."
-            className={`${inputStyle} h-[200px] resize-none`}
+            className={`${inputStyle} h-[200px] pt-[10px] resize-none`}
             required
           />
         </div>

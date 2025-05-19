@@ -21,7 +21,9 @@ function NavBar() {
           !NightMode ? "border-[#efedeb]" : "border-[#34302d]"
         } max-w-[640px] w-full h-[52px]  rounded-[12px] shadow-lg border-[1px] p-[6px] flex justify-between  items-center `}
       >
-        <div className="w-[40px] h-[40px] rounded-[6px] bg-[blue]"></div>
+        <div>
+          <span className="text-3xl">📝</span>
+        </div>
         <div className="flex items-center gap-[10px]">
           <NavigationLinks />
           <button
