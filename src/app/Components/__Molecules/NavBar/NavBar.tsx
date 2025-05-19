@@ -6,12 +6,15 @@ import NavigationLinks from "../../__Atoms/NavigationLinks/NavigationLinks";
 import Image from "next/image";
 import Moon from "../../../Common/Images/Icon.png";
 import Sun from "../../../Common/Images/sun.png";
+import Link from "next/link";
 
 function NavBar() {
   const pathname = usePathname();
   const NightMode = useThemeMode((state) => state.nightMode);
   const setNightMode = useThemeMode((state) => state.setNightMode);
-
+  function refreshPage() {
+    window.location.reload();
+  }
   return (
     <>
       <div
@@ -21,8 +24,13 @@ function NavBar() {
           !NightMode ? "border-[#efedeb]" : "border-[#34302d]"
         } max-w-[640px] w-full h-[52px]  rounded-[12px] shadow-lg border-[1px] p-[6px] flex justify-between  items-center `}
       >
-        <div>
-          <span className="text-3xl">📝</span>
+        <div className="flex items-center gap-[6px]">
+          <div className="cursor-pointer" onClick={refreshPage}>
+            <span className="text-3xl">📝</span>
+          </div>
+          <Link href={"/"} className={`font-semibold text-red-800 `}>
+            Log out
+          </Link>
         </div>
         <div className="flex items-center gap-[10px]">
           <NavigationLinks />
