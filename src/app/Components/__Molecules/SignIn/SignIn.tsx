@@ -5,6 +5,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+interface User {
+  id: number;
+  author: string;
+  email: string;
+  password: string;
+  Blogs: any[];
+  createdAt: string;
+}
 const schema = yup.object({
   name: yup
     .string()
@@ -51,7 +59,7 @@ function SignIn() {
     const parsedUsers = storedUsers ? JSON.parse(storedUsers) : [];
 
     const existingUser = parsedUsers.find(
-      (user: any) => user.email === data.email
+      (user: User) => user.email === data.email
     );
     if (existingUser) {
       setError("email", {
