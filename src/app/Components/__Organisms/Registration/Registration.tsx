@@ -28,13 +28,13 @@ function Registration() {
         <div className="flex flex-col gap-4 items-center w-full max-w-xs">
           <button
             onClick={() => setIsLogIn(true)}
-            className="w-full h-[50px] bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white rounded-xl font-semibold text-lg transition-all duration-200 shadow-sm"
+            className="w-full cursor-pointer h-[50px] bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white rounded-xl font-semibold text-lg transition-all duration-200 shadow-sm"
           >
             Log In
           </button>
           <button
             onClick={() => setIsSignIn(true)}
-            className="w-full h-[50px] bg-white border border-blue-600 hover:bg-blue-50 text-blue-600 rounded-xl font-semibold text-lg transition-all duration-200 shadow-sm"
+            className="w-full cursor-pointer h-[50px] bg-white border border-blue-600 hover:bg-blue-50 text-blue-600 rounded-xl font-semibold text-lg transition-all duration-200 shadow-sm"
           >
             Sign Up
           </button>

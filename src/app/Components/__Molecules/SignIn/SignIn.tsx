@@ -5,25 +5,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-interface Blog {
-  title: string;
-  content: string;
-  createdAt: string;
-  slug: string;
-  description: string;
-}
 
-interface User {
-  id: number;
-  author: string;
-  email: string;
-  password: string;
-  Blogs: Blog[];
-  createdAt: string;
-}
 const schema = yup.object({
   name: yup
     .string()
+    .min(4, "Name is too short")
     .required("Name is required")
     .matches(/^[a-zA-Z]+$/, "Invalid name"),
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -48,12 +34,13 @@ function SignIn() {
   const setIsSignIn = useSignInModal((state) => state.setIsSignIn);
   const setIsLogIn = useLogInModal((state) => state.setIsLogIn);
   const [showPassword, setShowPassword] = useState(false);
+  const [exist, setExist] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
+    reset,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
@@ -62,46 +49,35 @@ function SignIn() {
     setIsLogIn(true);
   }
 
-  const onSubmit = (data: FormData) => {
-    const storedUsers = localStorage.getItem("thoughtspace_users");
-    const parsedUsers = storedUsers ? JSON.parse(storedUsers) : [];
+  const onSubmit = async (data: FormData) => {
+    const res = await fetch("http://localhost:4005/project/auth/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        fullName: data.name,
+      }),
+    });
 
-    const existingUser = parsedUsers.find(
-      (user: User) => user.email === data.email
-    );
-    if (existingUser) {
-      setError("email", {
-        type: "manual",
-        message: "A user with this email already exists.",
-      });
-      return;
+    const responseData = await res.json();
+    if (res.status === 201) {
+      reset();
+      setIsSignIn(false);
+      setIsLogIn(true);
+    } else if (res.status === 400) {
+      setExist(true);
+      reset();
     }
-
-    const lastId =
-      parsedUsers.length > 0 ? parsedUsers[parsedUsers.length - 1].id : 0;
-
-    const newUser = {
-      id: lastId + 1,
-      author: data.name,
-      email: data.email,
-      password: data.password,
-      Blogs: [],
-      createdAt: new Date().toISOString(),
-    };
-
-    localStorage.setItem(
-      "thoughtspace_users",
-      JSON.stringify([...parsedUsers, newUser])
-    );
-
-    console.log("New user created:", newUser);
-    toLogIN();
   };
 
   function onClose() {
+    setExist(false);
     setIsSignIn(false);
+    reset();
   }
-
   return (
     <Modal
       open={isSignIn}
@@ -125,7 +101,7 @@ function SignIn() {
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white rounded-[16px] shadow-[0_8px_24px_rgba(0,0,0,0.1)] px-[32px] py-[40px] flex flex-col gap-[20px]"
+          className="bg-white rounded-[16px]  shadow-[0_8px_24px_rgba(0,0,0,0.1)] px-[32px] py-[40px] flex flex-col gap-[20px]"
         >
           <div className="text-center mb-[10px]">
             <h1 className="text-[20px] font-[700] text-[#111827]">
@@ -211,6 +187,13 @@ function SignIn() {
               </span>
             )}
           </div>
+          <p
+            className={`text-red-600 text-[12px] mt-[-18px] mb-[-15px] ${
+              !exist ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            User already exists
+          </p>
           <label className="flex items-center gap-[6px] text-[13px] text-[#6B7280] mt-[4px]">
             <input
               type="checkbox"
