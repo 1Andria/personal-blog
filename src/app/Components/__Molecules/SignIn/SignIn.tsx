@@ -65,7 +65,6 @@ function SignIn() {
       }
     );
 
-    const responseData = await res.json();
     if (res.status === 201) {
       reset();
       setIsSignIn(false);

@@ -7,7 +7,6 @@ import {
   SignInTypes,
   ThemeModeTypes,
   UpdateModalStore,
-  UpdateModalType,
   UserIdType,
 } from "../Types/Types";
 

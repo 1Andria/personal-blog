@@ -84,7 +84,7 @@ function PostsBody() {
           >
             ← Back
           </button>
-          <h1 className="text-[28px] font-bold mb-[24px]">User's Posts</h1>
+          <h1 className="text-[28px] font-bold mb-[24px]">User&apos;s Posts</h1>
 
           <div className="flex flex-col gap-[16px]">
             {blogs.map((el: BlogType, key: number) => (

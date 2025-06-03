@@ -40,7 +40,6 @@ function Newsletter() {
       }
     );
 
-    const responseData = await res.json();
     if (res.status === 201) {
       setDescription("");
       setTitle("");
