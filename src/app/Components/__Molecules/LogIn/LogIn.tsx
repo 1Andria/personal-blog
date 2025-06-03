@@ -138,7 +138,7 @@ function LogIn() {
 
           <button
             type="submit"
-            className="flex justify-center items-center h-[44px] w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-[8px] font-semibold transition-all duration-200"
+            className="flex justify-center items-center h-[44px] w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-[8px] font-semibold transition-all duration-200 cursor-pointer"
           >
             Log In
           </button>
