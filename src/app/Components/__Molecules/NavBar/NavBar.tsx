@@ -20,7 +20,7 @@ function NavBar() {
   useEffect(() => {
     const getUser = async () => {
       const res = await fetch(
-        "http://localhost:4005/project/auth/current-user",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/project/auth/current-user`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

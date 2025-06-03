@@ -28,16 +28,19 @@ function LogIn() {
     if (!email || !password) {
       return;
     }
-    const res = await fetch("http://localhost:4005/project/auth/sign-in", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/auth/sign-in`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
 
     const data = await res.json();
     if (res.status === 200) {

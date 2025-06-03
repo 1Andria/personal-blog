@@ -32,7 +32,7 @@ function PostsBody() {
   const getUsers = async () => {
     if (!firstValue) return;
     const res = await fetch(
-      `http://localhost:4005/project/users/${firstValue}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/users/${firstValue}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -51,12 +51,15 @@ function PostsBody() {
 
   const deletePost = async (id: string) => {
     if (!id) return;
-    const res = await fetch(`http://localhost:4005/project/blogs/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/blogs/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status === 200) {
       getUsers();
     }

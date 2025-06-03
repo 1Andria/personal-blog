@@ -24,11 +24,14 @@ function HomeBody() {
   }, [token]);
 
   const getUsers = async () => {
-    const res = await fetch("http://localhost:4005/project/users", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/users`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await res.json();
     if (res.status === 200) {
       setUsers(data);

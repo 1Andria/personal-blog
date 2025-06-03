@@ -24,18 +24,21 @@ function Newsletter() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:4005/project/blogs", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        content,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/blogs`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          content,
+        }),
+      }
+    );
 
     const responseData = await res.json();
     if (res.status === 201) {
@@ -46,11 +49,14 @@ function Newsletter() {
   };
 
   const getUser = async () => {
-    const res = await fetch("http://localhost:4005/project/auth/current-user", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/auth/current-user`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await res.json();
     if (res.status === 200) {
       setCurrentUser(data.fullName);
@@ -59,7 +65,7 @@ function Newsletter() {
 
   const DeleteUser = async () => {
     const res = await fetch(
-      `http://localhost:4005/project/users/${currentId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/users/${currentId}`,
       {
         method: "DELETE",
         headers: {

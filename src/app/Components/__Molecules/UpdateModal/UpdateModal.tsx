@@ -33,7 +33,7 @@ function UpdateModal({ onSuccess }: { onSuccess?: () => void }) {
     if (!blogToUpdate) return;
 
     const res = await fetch(
-      `http://localhost:4005/project/blogs/${blogToUpdate._id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/blogs/${blogToUpdate._id}`,
       {
         method: "PUT",
         headers: {

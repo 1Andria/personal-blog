@@ -24,11 +24,14 @@ function AllBlogs() {
 
   useEffect(() => {
     const getPosts = async () => {
-      const res = await fetch("http://localhost:4005/project/blogs", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/project/blogs`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (res.ok) {
         const data: Blog[] = await res.json();
         const sorted = data.sort(

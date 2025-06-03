@@ -50,17 +50,20 @@ function SignIn() {
   }
 
   const onSubmit = async (data: FormData) => {
-    const res = await fetch("http://localhost:4005/project/auth/sign-up", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-        fullName: data.name,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/project/auth/sign-up`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          fullName: data.name,
+        }),
+      }
+    );
 
     const responseData = await res.json();
     if (res.status === 201) {
