@@ -76,7 +76,9 @@ function UpdateModal({ onSuccess }: { onSuccess?: () => void }) {
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-[14px] bg-white p-[25px] rounded-[16px]"
+            className={`flex flex-col gap-[14px]   p-[25px] ${
+              NightMode ? "bg-[#1c1a19]" : "bg-white"
+            } rounded-[16px]`}
           >
             <div className="flex flex-col gap-[10px]">
               <label
@@ -134,7 +136,7 @@ function UpdateModal({ onSuccess }: { onSuccess?: () => void }) {
               type="submit"
               className={`mt-[20px] h-[45px] cursor-pointer rounded-[12px] text-white font-medium tracking-wide transition-all duration-300 bg-blue-600 hover:bg-blue-700`}
             >
-              Publish
+              Update
             </button>
           </form>
         </Box>

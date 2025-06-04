@@ -52,3 +52,16 @@ export type userType = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type Blog = {
+  _id: string;
+  title: string;
+  content: string;
+  description: string;
+  author: {
+    _id: string;
+    fullName: string;
+    email: string;
+  };
+  createdAt: string;
+};

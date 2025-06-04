@@ -21,6 +21,7 @@ function PostsBody() {
   const firstValue = Array.isArray(idParam) ? idParam[0] : null;
   const currentId = useCurrentId((state) => state.currentId);
   const setBlogToUpdate = useUpdateModal((state) => state.setBlogToUpdate);
+  const [isReady, setIsReady] = useState(false);
 
   const setUpdateModal = useUpdateModal((state) => state.setUpdateModal);
 
@@ -46,6 +47,7 @@ function PostsBody() {
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
       setBlogs(sortedBlogs);
+      setIsReady(true);
     }
   };
 
@@ -73,6 +75,18 @@ function PostsBody() {
   const baseClasses = `max-w-[620px] w-full min-h-[calc(100vh-72px)] px-[24px] py-[32px] border-l border-r shadow-sm`;
   const lightMode = `border-[#e6e3e1] bg-[#fdfcfa] text-[#1a1a1a]`;
   const darkMode = `border-[#34302d] bg-[#1c1a19] text-white`;
+
+  if (!isReady) {
+    return (
+      <div
+        className={`${baseClasses} ${
+          NightMode ? darkMode : lightMode
+        } flex items-center justify-center text-sm text-gray-400`}
+      >
+        Loading posts...
+      </div>
+    );
+  }
 
   return (
     <>

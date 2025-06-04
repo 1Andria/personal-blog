@@ -1,24 +1,13 @@
 "use client";
 import { useThemeMode } from "@/app/Common/Store/Store";
+import { Blog } from "@/app/Common/Types/Types";
 import { getCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
-
-type Blog = {
-  _id: string;
-  title: string;
-  content: string;
-  description: string;
-  author: {
-    _id: string;
-    fullName: string;
-    email: string;
-  };
-  createdAt: string;
-};
 
 function AllBlogs() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [expandedPosts, setExpandedPosts] = useState<string[]>([]);
+  const [isReady, setIsReady] = useState(false);
   const NightMode = useThemeMode((state) => state.nightMode);
   const token = getCookie("accessToken");
 
@@ -39,6 +28,7 @@ function AllBlogs() {
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
         setBlogs(sorted);
+        setIsReady(true);
       } else {
         console.error("Failed fetch");
       }
@@ -47,11 +37,25 @@ function AllBlogs() {
     if (token) {
       getPosts();
     }
-  }, []);
+  }, [token]);
 
   function togglePost(id: string) {
     setExpandedPosts((prev) =>
       prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+    );
+  }
+
+  if (!isReady) {
+    return (
+      <div
+        className={`max-w-[620px] w-full min-h-[calc(100vh-72px)] mx-auto border-l border-r px-[20px] pt-[20px] pb-[40px] ${
+          NightMode
+            ? "border-[#34302d] bg-[#1c1a19] text-white"
+            : "border-[#efedeb] bg-[#fbf9f7] text-black"
+        } flex items-center justify-center text-sm text-gray-400`}
+      >
+        Loading blogs...
+      </div>
     );
   }
 
